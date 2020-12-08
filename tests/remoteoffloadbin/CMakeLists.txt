@@ -1,0 +1,40 @@
+include_directories(${GSTREAMER_INCLUDE_DIRS})
+include_directories(${GLIB2_INCLUDE_DIRS})
+link_directories( ${GSTREAMER_LIBRARY_DIRS} )
+
+add_executable(test1 test1.c)
+target_link_libraries(test1 ${GLIBS} )
+add_executable(test2 test2.c)
+target_link_libraries(test2 ${GLIBS} )
+add_executable(test3 test3.c)
+target_link_libraries(test3 ${GLIBS} )
+add_executable(test4 test4.c)
+target_link_libraries(test4 ${GLIBS} )
+add_executable(test5 test5.c)
+target_link_libraries(test5 ${GLIBS} )
+add_executable(test6 test6.c)
+target_link_libraries(test6 ${GLIBS} )
+add_executable(test7 test7.c)
+target_link_libraries(test7 ${GLIBS} )
+add_executable(test8 test8.c)
+target_link_libraries(test8 ${GLIBS} )
+add_executable(test9 test9.c)
+target_link_libraries(test9 ${GLIBS} )
+
+#build tests that use GVA capabilities
+IF( ${USE_GVA} )
+  add_executable(vehicle_detection vehicle_detection.c)
+  target_link_libraries(vehicle_detection ${GLIBS} )
+
+  add_executable(face_detection_and_classification face_detection_and_classification.c)
+  target_link_libraries(face_detection_and_classification ${GLIBS} )
+
+  add_executable(vaapi_encode_decode_classify vaapi_encode_decode_classify.c)
+  target_link_libraries(vaapi_encode_decode_classify ${GLIBS} )
+
+  add_executable(testcroproi testcroproi.c)
+  target_link_libraries(testcroproi ${GLIBS} )
+
+  add_executable(testcropandcomposeroi testcropandcomposeroi.c)
+  target_link_libraries(testcropandcomposeroi ${GLIBS} )
+ENDIF( ${USE_GVA} )
