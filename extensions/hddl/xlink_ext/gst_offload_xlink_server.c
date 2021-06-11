@@ -39,10 +39,9 @@ static void xlink_server_run_ropinstance(GArray *id_commsio_pair_array, void *us
    GHashTable *id_to_channel_hash =
             id_commsio_pair_array_to_id_to_channel_hash(id_commsio_pair_array);
 
-
    if( id_to_channel_hash )
    {
-   	gboolean bfamily_error = FALSE;
+      RemoteOffloadDevice *device = NULL;
       if( sw_device_id )
       {
           //Given swDeviceId, we know what device family we are
@@ -51,6 +50,7 @@ static void xlink_server_run_ropinstance(GArray *id_commsio_pair_array, void *us
              GetFamilyFromSWDeviceId(sw_device_id);
 
           //Sanity check on family
+          gboolean bfamily_error = FALSE;
           switch( device_family )
           {
              case SW_DEVICE_ID_KMB_FAMILY:
@@ -63,25 +63,26 @@ static void xlink_server_run_ropinstance(GArray *id_commsio_pair_array, void *us
              break;
           }
       }
-
-      if( !bfamily_error )
+      else
       {
-			RemoteOffloadPipeline *pPipeline =
-					remote_offload_pipeline_new(NULL, id_to_channel_hash);
+         GST_INFO("sw_device_id is 0... will not create device-specific object for ROP");
+      }
 
-			if( pPipeline )
-			{
-				if( !remote_offload_pipeline_run(pPipeline) )
-				{
-					GST_ERROR("remote_offload_pipeline_run failed");
-				}
+      RemoteOffloadPipeline *pPipeline =
+            remote_offload_pipeline_new(device, id_to_channel_hash);
 
-				g_object_unref(pPipeline);
-			}
-			else
-			{
-				GST_ERROR("Error in remote_offload_pipeline_new");
-			}
+      if( pPipeline )
+      {
+         if( !remote_offload_pipeline_run(pPipeline) )
+         {
+            GST_ERROR("remote_offload_pipeline_run failed");
+         }
+
+         g_object_unref(pPipeline);
+      }
+      else
+      {
+         GST_ERROR("Error in remote_offload_pipeline_new");
       }
 
       g_hash_table_unref(id_to_channel_hash);

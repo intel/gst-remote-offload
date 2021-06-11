@@ -24,7 +24,6 @@
 
 #include <glib-object.h>
 #include <stdint.h>
-
 #include <xlink.h>
 
 G_BEGIN_DECLS

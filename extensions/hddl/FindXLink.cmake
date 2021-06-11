@@ -13,7 +13,6 @@
     endif()
   else()
     #In the case of using "Real" XLink, try to find libXLink.so
-
     find_library(XLINK_LIBRARY NAMES XLink CACHE )
     if( XLINK_LIBRARY )
       message("XLink library found: ${XLINK_LIBRARY}")

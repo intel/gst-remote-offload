@@ -6,7 +6,7 @@ if (ENABLE_CLIENT_COMPONENTS)
     xlinkdeviceproxy.c
     remoteoffloadextensionxlink.c
   )
-  target_link_libraries(remoteoffloadextxlink ${GLIBS} ${NAME_REMOTEOFFLOADCORE_LIB} ${xlinkPC_LIBRARY})
+  target_link_libraries(remoteoffloadextxlink ${GLIBS} ${NAME_REMOTEOFFLOADCORE_LIB} ${xlinkPC_LIBRARY} )
 
   if( SAFESTR_LIBRARY )
     target_link_libraries(remoteoffloadextxlink ${SAFESTR_LIBRARY})
