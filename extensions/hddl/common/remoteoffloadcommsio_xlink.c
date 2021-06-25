@@ -728,7 +728,6 @@ static void remote_offload_comms_io_xlink_constructed(GObject *object)
   if( pCommsIOXLink->priv.deviceIdHandler &&
       pCommsIOXLink->priv.channelId )
   {
-
      //For XLink over PCIe, RXB_TXN proves to have much
      //better performance than RXB_TXB. There's no reason
      //to internally wait for the "other side" to read,

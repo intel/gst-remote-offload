@@ -217,8 +217,10 @@ void HDDLRemoteOffloadPipeline::remoteOffloadPipelineRoutine(const uint64_t pipe
 
           if( id_to_commschannel_hash )
           {
+              RemoteOffloadDevice *device = NULL;
+
               RemoteOffloadPipeline *pPipeline =
-                   remote_offload_pipeline_new(NULL,
+                   remote_offload_pipeline_new(device,
                                                id_to_commschannel_hash);
 
               if( pPipeline )
@@ -240,6 +242,9 @@ void HDDLRemoteOffloadPipeline::remoteOffloadPipelineRoutine(const uint64_t pipe
               }
 
               g_hash_table_unref(id_to_commschannel_hash);
+
+              if( device )
+                 g_object_unref(device);
           }
           else
           {
